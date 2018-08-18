@@ -5,7 +5,7 @@ export default class Component {
     this.render = this.render || function() {};
 
     if (props.store instanceof Store) {
-      props.store.events.subscribe("stateChange", () => self.render());
+      props.store.events.subscribe("stateChange", () => this.render());
     }
 
     if (props.hasOwnProperty("element")) {

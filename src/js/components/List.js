@@ -1,5 +1,5 @@
-import Component from "../lib/component";
-import store from "../store/index";
+import Component from "../lib/component.js";
+import store from "../store/index.js";
 
 export default class List extends Component {
   constructor() {
@@ -31,7 +31,7 @@ export default class List extends Component {
       .querySelectorAll("button")
       .forEach((button, index) =>
         button.addEventListener("click", () =>
-          store.disptach("clearItem", { index })
+          store.dispatch("clearItem", { index })
         )
       );
   }

@@ -1,8 +1,9 @@
-import PubSub from "../lib/pubsub";
+import PubSub from "../lib/pubsub.js";
 
 export default class Store {
   constructor(params) {
-    // let self = this;
+    this.dispatch = this.dispatch.bind(this);
+    this.commit = this.commit.bind(this);
     this.actions = {};
     this.mutations = {};
     this.state = {};
@@ -33,32 +34,26 @@ export default class Store {
   }
 
   dispatch(actionKey, payload) {
-    // let self = this;
-
     if (typeof this.actions[actionKey] !== "function") {
       console.error(`Action "${actionKey}" doesn't exist.`);
       return false;
     }
 
-    console.groupCollapsed(`ACTION: ${actionKey}`);
     this.status = "action";
     this.actions[actionKey](this, payload);
-    console.groupEnd();
 
     return true;
   }
 
   commit(mutationKey, payload) {
-    // let self = this;
-
     if (typeof this.mutations[mutationKey] !== "function") {
       console.log(`Mutation "${mutationKey}" doesn't exist`);
       return false;
     }
 
     this.status = "mutation";
-    let newState = this.mutations[mutationKey](self.state, payload);
-    this.state = Object.assign(self.state, newState);
+    let newState = this.mutations[mutationKey](this.state, payload);
+    this.state = Object.assign(this.state, newState);
 
     return true;
   }
