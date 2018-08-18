@@ -7,13 +7,16 @@ export default class Count extends Component {
       store,
       element: document.querySelector(".js-count")
     });
+
+    this.store = store;
   }
 
   render() {
-    const suffix = store.state.items.length !== 1 ? "s" : "";
+    const { items } = this.store.state;
+    const suffix = items.length !== 1 ? "s" : "";
     this.element.innerHTML = `
         <small>You've done</small>
-        ${store.state.items.length}
+        ${items.length}
         <small>Task${suffix} today</small>
       `;
   }

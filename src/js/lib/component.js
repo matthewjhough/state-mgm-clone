@@ -11,5 +11,17 @@ export default class Component {
     if (props.hasOwnProperty("element")) {
       this.element = props.element;
     }
+
+    this.setComponentState = this.setComponentState.bind(this);
+  }
+
+  /* Add simple promised based setComponentState */
+  setComponentState(obj) {
+    return new Promise(resolve => {
+      this.componentState = { ...this.componentState, ...obj };
+      resolve();
+    }).then(() => {
+      this.render();
+    });
   }
 }

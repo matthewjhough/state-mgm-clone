@@ -7,6 +7,13 @@ export default class List extends Component {
       store,
       element: document.querySelector(".js-items")
     });
+
+    this.store = store;
+    this.clearItem = this.clearItem.bind(this);
+  }
+
+  clearItem(type, index) {
+    this.store.dispatch(type, index);
   }
 
   render() {
@@ -31,7 +38,7 @@ export default class List extends Component {
       .querySelectorAll("button")
       .forEach((button, index) =>
         button.addEventListener("click", () =>
-          store.dispatch("clearItem", { index })
+          this.clearItem("clearItem", { index })
         )
       );
   }
